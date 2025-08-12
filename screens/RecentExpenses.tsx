@@ -3,5 +3,5 @@ import React from "react";
 import ExpensesOutput from "../components/ExpensesOutput";
 
 export default function RecentExpenses() {
-  return <ExpensesOutput period="Last & Days" />;
+  return <ExpensesOutput period="Last 7 Days" />;
 }
