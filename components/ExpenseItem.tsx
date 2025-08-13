@@ -8,8 +8,13 @@ type Props = {
 };
 
 export default function ExpenseItem({ expense }: Props) {
+  function expensePressHandler(): void {}
+
   return (
-    <Pressable>
+    <Pressable
+      onPress={expensePressHandler}
+      style={({ pressed }) => pressed && styles.pressed}
+    >
       <View style={styles.expenseItem}>
         <View>
           <Text style={[styles.textBase, styles.description]}>
@@ -20,7 +25,7 @@ export default function ExpenseItem({ expense }: Props) {
           </Text>
         </View>
         <View style={styles.amountContainer}>
-          <Text style={styles.amount}>{expense.amount}</Text>
+          <Text style={styles.amount}>{expense.amount.toFixed(2)}</Text>
         </View>
       </View>
     </Pressable>
@@ -28,6 +33,9 @@ export default function ExpenseItem({ expense }: Props) {
 }
 
 const styles = StyleSheet.create({
+  pressed: {
+    opacity: 0.75,
+  },
   expenseItem: {
     padding: 12,
     marginVertical: 8,
