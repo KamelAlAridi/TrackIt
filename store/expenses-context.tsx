@@ -115,9 +115,9 @@ export default function ExpensesContextProvider({ children }: ProviderProps) {
   }
   const value: ExpensesContextType = {
     expenses: expensesState,
-    addExpense,
-    deleteExpense,
-    updateExpense,
+    addExpense: addExpense,
+    deleteExpense: deleteExpense,
+    updateExpense: updateExpense,
   };
   return (
     <ExpensesContext.Provider value={value}>
