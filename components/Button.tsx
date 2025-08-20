@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary500,
   },
   flat: {
-    backgroundColor: "trasparent",
+    backgroundColor: "transparent",
   },
   buttonText: {
     color: "white",
