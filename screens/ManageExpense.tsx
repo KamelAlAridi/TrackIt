@@ -1,7 +1,9 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { stackNavParams } from "../types";
+import IconButton from "../components/IconButton";
+import { GlobalStyles } from "../constants/styles";
 
 type Props = NativeStackScreenProps<stackNavParams, "ManageExpense">;
 
@@ -15,9 +17,35 @@ export default function ManageExpense({ route, navigation }: Props) {
     });
   }, [navigation, isEditing]);
 
+  function deleteExpenseHandler(): void {}
+
   return (
-    <View>
-      <Text>ManageExpense</Text>
+    <View style={styles.container}>
+      {isEditing && (
+        <View style={styles.deleteContainer}>
+          <IconButton
+            icon="trash"
+            color={GlobalStyles.colors.error500}
+            size={36}
+            onPress={deleteExpenseHandler}
+          />
+        </View>
+      )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: GlobalStyles.colors.primary800,
+  },
+  deleteContainer: {
+    marginTop: 16,
+    paddingTop: 8,
+    borderTopWidth: 2,
+    borderTopColor: GlobalStyles.colors.primary200,
+    alignItems: "center",
+  },
+});
