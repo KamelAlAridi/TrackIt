@@ -1,4 +1,11 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import React, { Children, ReactNode } from "react";
 import { GlobalStyles } from "../constants/styles";
 
@@ -6,11 +13,12 @@ type Props = {
   children: ReactNode;
   onPress: () => void;
   mode: string;
+  style?: StyleProp<ViewStyle>;
 };
 
-export default function Button({ children, onPress, mode }: Props) {
+export default function Button({ children, onPress, mode, style }: Props) {
   return (
-    <View>
+    <View style={style}>
       <Pressable onPress={onPress}>
         <View style={[styles.button, mode === "flat" && styles.flat]}>
           <Text style={[styles.buttonText, mode === "flat" && styles.flatText]}>
