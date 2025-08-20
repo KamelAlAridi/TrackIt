@@ -9,7 +9,7 @@ export interface Expense {
 
 export type stackNavParams = {
   ExpensesOverview: NavigatorScreenParams<bottomTabsNavParams>;
-  ManageExpense: undefined;
+  ManageExpense: { expenseId?: string };
 };
 
 export type bottomTabsNavParams = {

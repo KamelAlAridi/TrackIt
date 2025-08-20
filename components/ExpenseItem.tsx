@@ -21,7 +21,7 @@ type Nav = CompositeNavigationProp<
 export default function ExpenseItem({ expense }: Props) {
   const navigation = useNavigation<Nav>();
   function expensePressHandler(): void {
-    navigation.navigate("ManageExpense");
+    navigation.navigate("ManageExpense", { expenseId: expense.id });
   }
 
   return (
