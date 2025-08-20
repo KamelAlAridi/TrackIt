@@ -4,28 +4,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DUMMYEX: Expense[] = [
   {
-    id: "e1",
-    description: "a pair of shoes",
-    amount: 59.99,
-    date: new Date("2021-12-19"),
-  },
-  {
     id: "e2",
-    description: "tv",
-    amount: 109.99,
-    date: new Date("2021-12-19"),
-  },
-  {
-    id: "e3",
-    description: "ps5",
-    amount: 499.99,
-    date: new Date("2021-11-19"),
-  },
-  {
-    id: "e4",
-    description: "food",
+    description: "example",
     amount: 59.99,
-    date: new Date("2025-8-12"),
+    date: new Date(),
   },
 ];
 
