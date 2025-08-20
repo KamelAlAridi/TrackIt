@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { stackNavParams } from "../types";
 import IconButton from "../components/IconButton";
 import { GlobalStyles } from "../constants/styles";
+import Button from "../components/Button";
 
 type Props = NativeStackScreenProps<stackNavParams, "ManageExpense">;
 
@@ -18,9 +19,19 @@ export default function ManageExpense({ route, navigation }: Props) {
   }, [navigation, isEditing]);
 
   function deleteExpenseHandler(): void {}
+  function cancelHandler(): void {}
+  function confirmHandler(): void {}
 
   return (
     <View style={styles.container}>
+      <View style={styles.buttonContainer}>
+        <Button style={styles.button} mode="flat" onPress={cancelHandler}>
+          Cancel
+        </Button>
+        <Button style={styles.button} mode="normal" onPress={confirmHandler}>
+          {isEditing ? "Update" : "Add"}
+        </Button>
+      </View>
       {isEditing && (
         <View style={styles.deleteContainer}>
           <IconButton
@@ -40,6 +51,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     backgroundColor: GlobalStyles.colors.primary800,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    minWidth: 120,
+    marginHorizontal: 8,
   },
   deleteContainer: {
     marginTop: 16,
