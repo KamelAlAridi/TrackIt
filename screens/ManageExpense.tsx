@@ -18,9 +18,15 @@ export default function ManageExpense({ route, navigation }: Props) {
     });
   }, [navigation, isEditing]);
 
-  function deleteExpenseHandler(): void {}
-  function cancelHandler(): void {}
-  function confirmHandler(): void {}
+  function deleteExpenseHandler(): void {
+    navigation.goBack();
+  }
+  function cancelHandler(): void {
+    navigation.goBack();
+  }
+  function confirmHandler(): void {
+    navigation.goBack();
+  }
 
   return (
     <View style={styles.container}>

@@ -6,42 +6,15 @@ import ExpensesList from "./ExpensesList";
 import { GlobalStyles } from "../constants/styles";
 
 type Props = {
-  expenses?: Expense[];
+  expenses: Expense[];
   period: string;
 };
-
-const DUMMYEX: Expense[] = [
-  {
-    id: "e1",
-    description: "a pair of shoes",
-    amount: 59.99,
-    date: new Date("2021-12-19"),
-  },
-  {
-    id: "e2",
-    description: "tv",
-    amount: 109.99,
-    date: new Date("2021-12-19"),
-  },
-  {
-    id: "e3",
-    description: "ps5",
-    amount: 499.99,
-    date: new Date("2021-11-19"),
-  },
-  {
-    id: "e4",
-    description: "food",
-    amount: 59.99,
-    date: new Date("2025-8-12"),
-  },
-];
 
 export default function ExpensesOutput({ expenses, period }: Props) {
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={DUMMYEX} period={period} />
-      <ExpensesList expenses={DUMMYEX} />
+      <ExpensesSummary expenses={expenses} period={period} />
+      <ExpensesList expenses={expenses} />
     </View>
   );
 }
