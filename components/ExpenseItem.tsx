@@ -1,14 +1,28 @@
 import { View, Text, Pressable, StyleSheet, TextBase } from "react-native";
 import React from "react";
-import { Expense } from "../types";
+import { bottomTabsNavParams, Expense, stackNavParams } from "../types";
 import { GlobalStyles } from "../constants/styles";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import {
+  CompositeNavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type Props = {
   expense: Expense;
 };
 
+type Nav = CompositeNavigationProp<
+  BottomTabNavigationProp<bottomTabsNavParams>,
+  NativeStackNavigationProp<stackNavParams>
+>;
+
 export default function ExpenseItem({ expense }: Props) {
-  function expensePressHandler(): void {}
+  const navigation = useNavigation<Nav>();
+  function expensePressHandler(): void {
+    navigation.navigate("ManageExpense");
+  }
 
   return (
     <Pressable
