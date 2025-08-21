@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
+import { Expense, ExpenseNoId } from "../types";
 
 type inputVals = {
   amount: string;
@@ -12,14 +13,22 @@ type inputVals = {
 type Props = {
   submitButtonLabel: string;
   onCancel: () => void;
+  onConfirm: (e: ExpenseNoId) => void;
+  defaultValues?: Expense;
 };
 
-export default function ExpenseForm({ submitButtonLabel, onCancel }: Props) {
+export default function ExpenseForm({
+  submitButtonLabel,
+  onCancel,
+  onConfirm,
+  defaultValues,
+}: Props) {
   const [inputValues, setInputValues] = useState<inputVals>({
-    amount: "",
-    date: "",
-    description: "",
+    amount: defaultValues ? defaultValues.amount.toString() : "",
+    date: defaultValues ? defaultValues.date.toISOString().slice(0, 10) : "",
+    description: defaultValues ? defaultValues.description : "",
   });
+
   function inputChangeHandler(inputIdentifier: string, e: string): void {
     setInputValues((curr) => {
       return {
@@ -28,7 +37,32 @@ export default function ExpenseForm({ submitButtonLabel, onCancel }: Props) {
       };
     });
   }
-  function confirmHandler(): void {}
+
+  function confirmHandler(): void {
+    const regex = /^20\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    const rawDate = inputValues.date.trim();
+    const dateObj = new Date(rawDate);
+    const dateIsValid =
+      regex.test(rawDate) &&
+      !isNaN(dateObj.getTime()) &&
+      dateObj.toISOString().slice(0, 10) === rawDate;
+
+    const amountIsValid =
+      !isNaN(+inputValues.amount) && +inputValues.amount > 0;
+    const descIsValid = inputValues.description.trim().length > 0;
+
+    if (!amountIsValid || !dateIsValid || !descIsValid) {
+      Alert.alert("Invalid input", "Please check your input values");
+      return;
+    }
+    const expenseData = {
+      amount: +inputValues.amount,
+      date: new Date(inputValues.date),
+      description: inputValues.description,
+    };
+
+    onConfirm(expenseData);
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Expense</Text>
@@ -40,6 +74,7 @@ export default function ExpenseForm({ submitButtonLabel, onCancel }: Props) {
             keyboardType: "decimal-pad",
             onChangeText: inputChangeHandler.bind(null, "amount"),
             value: inputValues.amount,
+            returnKeyType: "done",
           }}
         />
         <Input
@@ -50,6 +85,7 @@ export default function ExpenseForm({ submitButtonLabel, onCancel }: Props) {
             maxLength: 10,
             onChangeText: inputChangeHandler.bind(null, "date"),
             value: inputValues.date,
+            returnKeyType: "done",
           }}
         />
       </View>
@@ -58,6 +94,7 @@ export default function ExpenseForm({ submitButtonLabel, onCancel }: Props) {
         textInputConfig={{
           multiline: true,
           value: inputValues.description,
+          maxLength: 100,
           onChangeText: inputChangeHandler.bind(null, "description"),
         }}
       />
